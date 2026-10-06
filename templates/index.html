@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leafline Library | Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Leafline Library home"><span>✦</span> Leafline <em>Library</em></a>
+    <div class="header-note"><span class="dot"></span> System online</div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">LIBRARY MANAGEMENT SYSTEM</p>
+        <h1>Every good story<br />deserves a home.</h1>
+        <p class="intro">Manage your collection, keep track of readers, and make every book easy to find.</p>
+      </div>
+      <button class="primary" id="openAdd">+ Add a book</button>
+    </section>
+
+    <section class="stats" aria-label="Library statistics">
+      <article><span class="stat-icon amber">▤</span><div><strong id="totalStat">0</strong><small>Total books</small></div></article>
+      <article><span class="stat-icon green">✓</span><div><strong id="availableStat">0</strong><small>Available now</small></div></article>
+      <article><span class="stat-icon blue">↗</span><div><strong id="issuedStat">0</strong><small>Currently issued</small></div></article>
+      <article><span class="stat-icon purple">♙</span><div><strong id="memberStat">0</strong><small>Library members</small></div></article>
+    </section>
+
+    <section class="collection">
+      <div class="section-heading"><div><p class="eyebrow">COLLECTION</p><h2>Books in the library</h2></div></div>
+      <div class="toolbar">
+        <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Search title, author, ISBN, or category" /></label>
+        <div class="filters" role="group" aria-label="Book availability filter">
+          <button class="filter active" data-status="All">All</button>
+          <button class="filter" data-status="Available">Available</button>
+          <button class="filter" data-status="Issued">Issued</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Book</th><th>Category</th><th>ISBN</th><th>Status</th><th>Borrower</th><th></th></tr></thead>
+          <tbody id="booksBody"></tbody>
+        </table>
+        <div class="empty" id="emptyState" hidden><span>⌕</span><h3>No books found</h3><p>Try a different search or add a new book to the collection.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="bookDialog" class="modal">
+    <form id="bookForm" method="dialog">
+      <div class="modal-header"><div><p class="eyebrow">NEW COLLECTION ITEM</p><h2>Add a book</h2></div><button class="close" type="button" data-close="bookDialog" aria-label="Close">×</button></div>
+      <div class="form-grid">
+        <label class="full">Book title<input name="title" required maxlength="120" placeholder="e.g. The Midnight Library" /></label>
+        <label>Author<input name="author" required maxlength="100" placeholder="Author name" /></label>
+        <label>ISBN<input name="isbn" required minlength="6" maxlength="30" placeholder="978..." /></label>
+        <label class="full">Category<input name="category" required maxlength="60" placeholder="e.g. Fiction, Science, History" /></label>
+      </div>
+      <div class="modal-actions"><button type="button" class="secondary" data-close="bookDialog">Cancel</button><button class="primary" type="submit">Add to library</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="issueDialog" class="modal small-modal">
+    <form id="issueForm" method="dialog">
+      <div class="modal-header"><div><p class="eyebrow">ISSUE BOOK</p><h2 id="issueTitle">Issue book</h2></div><button class="close" type="button" data-close="issueDialog" aria-label="Close">×</button></div>
+      <p class="issue-copy">Record the member receiving this book. It will immediately be marked as issued.</p>
+      <div class="form-grid"><label class="full">Member name<input name="name" required maxlength="100" placeholder="Full name" /></label><label class="full">Email address<input name="email" required type="email" maxlength="120" placeholder="reader@example.com" /></label></div>
+      <div class="modal-actions"><button type="button" class="secondary" data-close="issueDialog">Cancel</button><button class="primary" type="submit">Issue book</button></div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

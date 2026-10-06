@@ -1,0 +1,10 @@
+{
+  "name": "leafline-library-management-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frontend tooling commands for the Library Management System assessment project.",
+  "scripts": {
+    "start": "python app.py",
+    "dev": "python app.py"
+  }
+}
